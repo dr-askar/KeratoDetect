@@ -2,8 +2,8 @@ import streamlit as st
 import tensorflow as tf
 from PIL import Image, ImageOps
 import numpy as np
-from keras.models import load_model
-from keras import backend as K
+from tf.keras.models import load_model
+from tf.keras import backend as K
 from copy import deepcopy
 
 
