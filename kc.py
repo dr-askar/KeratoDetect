@@ -12,10 +12,10 @@ st.set_option('deprecation.showfileUploaderEncoding', False)
 l=["SA",'SP','TA','TP','THK','TEAE','TEPE','RAP','REF','RPP','total']
 @st.cache(max_entries=10, ttl=3600,suppress_st_warning=False,allow_output_mutation=True)
 def load_models(maps):
-    model=load_model((Path.cwd()/r'models/categorical_SA_best_weights_c1_loss.h5').__str__(),compile=False)
+    model=load_model((Path.cwd()/'models/categorical_SA_best_weights_c1_loss.h5').__str__(),compile=False)
     model._make_predict_function()
     session = K.get_session()
-    model1=load_model((Path.cwd()/r'models/categorical_total_best_weights_c1_loss.h5').__str__(),compile=False)
+    model1=load_model((Path.cwd()/'models/categorical_total_best_weights_c1_loss.h5').__str__(),compile=False)
     model1._make_predict_function()
     session1 = K.get_session()
     list_m=[(model,session ),(model1,session1 )]
@@ -77,7 +77,7 @@ def main():
             print(list_m)
             K.set_session(list_m[0][1])
             #print(session )
-            list_m[0][0].load_weights((Path.cwd()/r'models/categorical_%s_best_weights_c1_loss_weights.h5'%j).__str__())
+            list_m[0][0].load_weights((Path.cwd()/'models/categorical_%s_best_weights_c1_loss_weights.h5'%j).__str__())
             list_m[0][0]._make_predict_function()
             prediction =predict(imageI,list_m[0][0])
             p.extend(prediction .tolist()[0])
