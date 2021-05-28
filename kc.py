@@ -77,7 +77,7 @@ def main():
             print(list_m)
             K.set_session(list_m[0][1])
             #print(session )
-            list_m[0][0].load_weights((Path.cwd()/'models/categorical_%s_best_weights_c1_loss_weights.h5'%j).__str__())
+            list_m[0][0].load_weights((Path.cwd()/('models/categorical_%s_best_weights_c1_loss_weights.h5'%(j))).__str__())
             list_m[0][0]._make_predict_function()
             prediction =predict(imageI,list_m[0][0])
             p.extend(prediction .tolist()[0])
