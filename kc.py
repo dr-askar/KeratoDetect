@@ -5,14 +5,14 @@ import numpy as np
 from keras.models import load_model
 from keras import backend as K
 from copy import deepcopy
-
+from pathlib import Path
 
 
 st.set_option('deprecation.showfileUploaderEncoding', False)
 l=["SA",'SP','TA','TP','THK','TEAE','TEPE','RAP','REF','RPP','total']
 @st.cache(max_entries=10, ttl=3600,suppress_st_warning=False,allow_output_mutation=True)
 def load_models(maps):
-    
+    print(Path.cwd())
     model=load_model(r'models\categorical_SA_best_weights_c1_loss.h5',compile=False)
     model._make_predict_function()
     session = K.get_session()
