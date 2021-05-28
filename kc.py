@@ -12,7 +12,6 @@ st.set_option('deprecation.showfileUploaderEncoding', False)
 l=["SA",'SP','TA','TP','THK','TEAE','TEPE','RAP','REF','RPP','total']
 @st.cache(max_entries=10, ttl=3600,suppress_st_warning=False,allow_output_mutation=True)
 def load_models(maps):
-    st.write(Path.cwd())
     model=load_model(r'models\categorical_SA_best_weights_c1_loss.h5',compile=False)
     model._make_predict_function()
     session = K.get_session()
@@ -92,5 +91,5 @@ def main():
             st.write(pd.DataFrame(np.array(prediction ).reshape(-1,3),columns=['KC','NORMAL','SUSPECT'],index=[l[-1]]))
             
                 
-
+st.write(Path.cwd())
 main()
