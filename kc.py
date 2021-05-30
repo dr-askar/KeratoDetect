@@ -111,7 +111,7 @@ def main():
             prediction = list_m[1][0].predict(p[np.newaxis,...])
             prediction=pd.DataFrame(np.array(prediction ).reshape(-1,3),columns=['KC','NORMAL','SUSPECT'],index=[l[-1]])
             prediction=prediction.style.apply(background_gradient, cmap='Wistia',axis=None)
-            st.write()
+            st.write(prediction)
             
                 
 #st.write(Path.cwd())
