@@ -6,6 +6,25 @@ from keras.models import load_model
 from keras import backend as K
 from copy import deepcopy
 from pathlib import Path
+import pandas as pd
+import matplotlib.pyplot as plt
+from matplotlib import colors
+
+def background_gradient(s, m=None, M=None, cmap='PuBu', low=0, high=0):
+    print(s.shape)
+    if m is None:
+        m = s.min().min()
+    if M is None:
+        M = s.max().max()
+    rng = M - m
+    norm = colors.Normalize(m - (rng * low),
+                            M + (rng * high))
+    normed = s.apply(norm)
+
+    cm = plt.cm.get_cmap(cmap)
+    c = normed.applymap(lambda x: colors.rgb2hex(cm(x)))
+    ret = c.applymap(lambda x: 'background-color: %s' % x)
+    return ret
 
 
 st.set_option('deprecation.showfileUploaderEncoding', False)
@@ -82,13 +101,17 @@ def main():
             prediction =predict(imageI,list_m[0][0])
             p.extend(prediction .tolist()[0])
         import pandas as pd
-        st.write(pd.DataFrame(np.array(p).reshape(-1,3),columns=['KC','NORMAL','SUSPECT'],index=option))
+        data=pd.DataFrame(np.array(p).reshape(-1,3),columns=['KC','NORMAL','SUSPECT'],index=option)
+        data=data.style.apply(background_gradient, cmap='Wistia',axis=None)
+        st.write(data)
         if len(p)==30:
             p=np.array(p)
             #model1=load_model(r'models\categorical_total_best_weights_c1_loss.h5',compile=False)
             K.set_session(list_m[1][1])
             prediction = list_m[1][0].predict(p[np.newaxis,...])
-            st.write(pd.DataFrame(np.array(prediction ).reshape(-1,3),columns=['KC','NORMAL','SUSPECT'],index=[l[-1]]))
+            prediction=pd.DataFrame(np.array(prediction ).reshape(-1,3),columns=['KC','NORMAL','SUSPECT'],index=[l[-1]])
+            prediction=prediction.style.apply(background_gradient, cmap='Wistia',axis=None)
+            st.write()
             
                 
 #st.write(Path.cwd())
